@@ -1,0 +1,2762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能爷的博客 - 主页</title>
+    <script>
+        (function(){
+            var t=localStorage.getItem('blog_theme');
+            if(t==='light') document.documentElement.setAttribute('data-theme','light');
+        })();
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========== 主题颜色变量 ========== */
+        :root {
+            --bg-overlay: rgba(0, 0, 0, 0.35);
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-bg-hover: rgba(255, 255, 255, 0.18);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --card-border-hover: rgba(255, 255, 255, 0.3);
+            --card-shadow: rgba(0, 0, 0, 0.3);
+            --modal-bg: rgba(30, 30, 50, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.6);
+            --input-bg: rgba(255, 255, 255, 0.08);
+            --input-bg-focus: rgba(255, 255, 255, 0.15);
+            --input-border: rgba(255, 255, 255, 0.25);
+            --input-border-focus: rgba(255, 255, 255, 0.7);
+            --text-primary: #fff;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --text-dim: rgba(255, 255, 255, 0.4);
+            --border-standard: rgba(255, 255, 255, 0.2);
+            --border-strong: rgba(255, 255, 255, 0.3);
+            --accent-coral: #ff6b6b;
+            --accent-orange: #ff8e53;
+            --accent-gold: #ffd93d;
+            --accent-green: #2ed573;
+            --accent-red: #ff4757;
+            --accent-blue: #4d96ff;
+            --accent-purple: #a855f7;
+            --accent-gold-dark: #ffd700;
+            --gradient-primary: var(--gradient-primary);
+            --gradient-tab: var(--gradient-tab);
+            --gradient-section: var(--gradient-section);
+            --gradient-dice: var(--gradient-dice);
+            --gradient-game: linear-gradient(135deg, #ffd93d, #ff8e53);
+            --cursor-dot: #fff;
+            --cursor-ring: rgba(255, 255, 255, 0.5);
+            --cursor-ring-hover: rgba(255, 217, 61, 0.7);
+            --particle-color: rgba(255, 255, 255, 0.6);
+            --trail-color: rgba(255, 255, 255, 0.4);
+            --navbar-bg: rgba(255, 255, 255, 0.1);
+            --navbar-border: rgba(255, 255, 255, 0.15);
+            --btn-cancel-bg: rgba(255, 255, 255, 0.1);
+            --btn-cancel-hover: rgba(255, 255, 255, 0.2);
+            --btn-delete-hover: rgba(255, 71, 87, 0.5);
+            --btn-logout-hover: rgba(255, 71, 87, 0.6);
+            --tag-bg: rgba(255, 255, 255, 0.1);
+            --profile-popup-bg: rgba(20, 20, 40, 0.95);
+            --dice-face-bg: #fff;
+            --dice-face-text: #333;
+            --lightbox-bg: rgba(0, 0, 0, 0.9);
+            --title-text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --logo-text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            --btn-text: #fff;
+            --toast-text: #fff;
+            --accent-coral-rgb: 255, 107, 107;
+            --accent-green-rgb: 46, 213, 115;
+            --accent-gold-rgb: 255, 217, 61;
+            --accent-blue-rgb: 77, 150, 255;
+        }
+
+        [data-theme="light"] {
+            --bg-overlay: rgba(255, 255, 255, 0.55);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-bg-hover: rgba(255, 255, 255, 0.9);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --card-border-hover: rgba(0, 0, 0, 0.2);
+            --card-shadow: rgba(0, 0, 0, 0.08);
+            --modal-bg: rgba(255, 255, 255, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.35);
+            --input-bg: rgba(0, 0, 0, 0.04);
+            --input-bg-focus: rgba(0, 0, 0, 0.07);
+            --input-border: rgba(0, 0, 0, 0.15);
+            --input-border-focus: rgba(0, 0, 0, 0.4);
+            --text-primary: #1a1a2e;
+            --text-secondary: rgba(26, 26, 46, 0.8);
+            --text-muted: rgba(26, 26, 46, 0.5);
+            --text-dim: rgba(26, 26, 46, 0.35);
+            --border-standard: rgba(0, 0, 0, 0.12);
+            --border-strong: rgba(0, 0, 0, 0.2);
+            --accent-gold-dark: #b8860b;
+            --cursor-dot: #1a1a2e;
+            --cursor-ring: rgba(26, 26, 46, 0.4);
+            --particle-color: rgba(26, 26, 46, 0.25);
+            --trail-color: rgba(26, 26, 46, 0.25);
+            --navbar-bg: rgba(255, 255, 255, 0.75);
+            --navbar-border: rgba(0, 0, 0, 0.08);
+            --btn-cancel-bg: rgba(0, 0, 0, 0.05);
+            --btn-cancel-hover: rgba(0, 0, 0, 0.1);
+            --btn-delete-hover: rgba(255, 71, 87, 0.15);
+            --btn-logout-hover: rgba(255, 71, 87, 0.15);
+            --tag-bg: rgba(0, 0, 0, 0.06);
+            --profile-popup-bg: rgba(255, 255, 255, 0.95);
+            --title-text-shadow: none;
+            --logo-text-shadow: none;
+            --lightbox-bg: rgba(0, 0, 0, 0.92);
+        }
+
+        /* 全局过渡 */
+        *, *::before, *::after {
+            transition: background-color 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+        }
+        .cursor-dot, .cursor-ring, .cursor-trail, .cursor-click-burst, .particle, .firework-particle {
+            transition: none !important;
+        }
+
+        body {
+            min-height: 100vh;
+            background: url('1.png') center/cover no-repeat fixed;
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: var(--bg-overlay);
+            z-index: 0;
+        }
+
+        /* 浮动粒子 */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--particle-color);
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* ========== 鼠标动画 ========== */
+        .cursor-dot {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+
+        .cursor-dot.hover {
+            width: 16px;
+            height: 16px;
+            background: #ffd93d;
+            mix-blend-mode: normal;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--cursor-ring);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, border-color 0.3s;
+        }
+
+        .cursor-ring.hover {
+            width: 50px;
+            height: 50px;
+            border-color: var(--cursor-ring-hover);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--trail-color);
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.6s ease-out forwards;
+        }
+
+        @keyframes trailFade {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+        }
+
+        .cursor-click-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffd93d;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: clickBurst 0.6s ease-out forwards;
+        }
+
+        @keyframes clickBurst {
+            0% { width: 0; height: 0; opacity: 1; border-width: 4px; }
+            100% { width: 80px; height: 80px; opacity: 0; border-width: 1px; }
+        }
+
+        /* ========== 顶部导航栏 ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .navbar .logo {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            font-weight: bold;
+            letter-spacing: 0.08em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .navbar .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .navbar .user-info span {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+        }
+
+        .navbar .logout-btn {
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .navbar .logout-btn:hover {
+            background: rgba(255,71,87,0.6);
+            border-color: rgba(255,71,87,0.6);
+        }
+
+        .navbar .game-btn {
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255,107,107,0.3), rgba(255,142,83,0.3));
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .navbar .game-btn:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            transform: scale(1.05);
+            animation: pulse 0.6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(255,107,107,0); }
+        }
+
+        .navbar .thanks-btn {
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,215,0,0.15);
+            color: #ffd700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .navbar .thanks-btn:hover {
+            background: rgba(255,215,0,0.3);
+            border-color: #ffd700;
+            transform: scale(1.05);
+        }
+
+        /* ========== 主内容区 ========== */
+        .main-container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 20px 60px;
+        }
+
+        /* ========== 编辑按钮 ========== */
+        .fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 200;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 12px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        /* ========== 编辑弹窗 ========== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: var(--overlay-bg);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--modal-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 36px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: modalIn 0.4s ease-out;
+        }
+
+        @keyframes modalIn {
+            from { transform: translateY(40px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        .modal label {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .modal input[type="text"],
+        .modal input[type="number"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .modal input[type="text"]:focus,
+        .modal input[type="number"]:focus {
+            border-color: rgba(255,255,255,0.5);
+            background: var(--input-bg-focus);
+        }
+
+        .modal textarea {
+            width: 100%;
+            height: 180px;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.7;
+            transition: all 0.3s;
+        }
+
+        .modal textarea:focus {
+            border-color: rgba(255,255,255,0.5);
+            background: var(--input-bg-focus);
+        }
+
+        /* 图片上传区域 */
+        .image-upload-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: -8px;
+            margin-bottom: 16px;
+        }
+
+        .btn-insert-image {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border: 1px dashed rgba(255,255,255,0.4);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-insert-image:hover {
+            background: var(--input-bg-focus);
+            border-color: rgba(255,255,255,0.7);
+            color: var(--text-primary);
+        }
+
+        .image-preview-strip {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            min-height: 0;
+        }
+
+        .image-preview-strip:empty {
+            display: none;
+        }
+
+        .image-preview-item {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.2);
+            animation: previewIn 0.3s ease-out;
+        }
+
+        @keyframes previewIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview-item .remove-img {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,71,87,0.9);
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        .image-preview-item .remove-img:hover {
+            background: #ff4757;
+            transform: scale(1.2);
+        }
+
+        /* 年龄限制 */
+        .age-restrict-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .age-restrict-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .age-restrict-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ff6b6b;
+            cursor: pointer;
+        }
+
+        .age-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(255,107,107,0.3);
+            border: 1px solid rgba(255,107,107,0.5);
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .age-locked {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.4);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .age-locked .lock-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-publish {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+        }
+
+        .btn-publish:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+        }
+
+        .btn-cancel {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid rgba(255,255,255,0.2) !important;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* ========== 数字炸弹游戏 ========== */
+        .game-modal {
+            text-align: center;
+        }
+
+        .game-bomb-icon {
+            font-size: 5rem;
+            animation: bombBounce 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes bombBounce {
+            from { transform: translateY(0) rotate(-5deg); }
+            to { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .game-range {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .game-range .num-box {
+            background: var(--card-bg);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 14px;
+            padding: 16px 28px;
+            font-size: 2rem;
+            color: var(--text-primary);
+            font-weight: bold;
+            min-width: 80px;
+            transition: all 0.3s;
+        }
+
+        .game-range .num-box.low {
+            border-color: #2ed573;
+            box-shadow: 0 0 20px rgba(46,213,115,0.3);
+        }
+
+        .game-range .num-box.high {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 20px rgba(255,107,107,0.3);
+        }
+
+        .game-range .arrow {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.5rem;
+        }
+
+        .game-status {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        .game-chances {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .game-chances .heart {
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .game-chances .heart.lost {
+            filter: grayscale(1);
+            opacity: 0.3;
+            transform: scale(0.8);
+        }
+
+        .game-input-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .game-input-row input {
+            width: 120px;
+            padding: 12px 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .game-input-row input:focus {
+            border-color: #ffd93d;
+            box-shadow: 0 0 15px rgba(255,217,61,0.2);
+        }
+
+        .game-input-row button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffd93d, #ff8e53);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .game-input-row button:hover {
+            transform: scale(1.05);
+        }
+
+        .game-input-row button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .game-result {
+            margin-top: 18px;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .game-result.win {
+            background: rgba(46,213,115,0.2);
+            color: #2ed573;
+            border: 1px solid rgba(46,213,115,0.3);
+        }
+
+        .game-result.lose {
+            background: rgba(255,71,87,0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255,71,87,0.3);
+        }
+
+        .btn-restart {
+            margin-top: 16px;
+            padding: 10px 24px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .btn-restart:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .guess-history {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 14px;
+            min-height: 0;
+        }
+
+        .guess-history:empty {
+            display: none;
+        }
+
+        .guess-history .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: var(--card-bg);
+            color: rgba(255,255,255,0.7);
+            animation: tagIn 0.3s ease-out;
+        }
+
+        @keyframes tagIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .guess-history .tag.low-tag {
+            background: rgba(46,213,115,0.2);
+            color: #2ed573;
+        }
+
+        .guess-history .tag.high-tag {
+            background: rgba(255,107,107,0.2);
+            color: #ff6b6b;
+        }
+
+        /* ========== 鸣谢弹窗 ========== */
+        .thanks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .thanks-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            padding: 20px 24px;
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .thanks-item:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateX(4px);
+        }
+
+        .thanks-item .thanks-name {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        .thanks-item .thanks-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 6px;
+        }
+
+        /* ========== 烟花 ========== */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: fireworkBurst 1.5s ease-out forwards;
+        }
+
+        @keyframes fireworkBurst {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--dx), var(--dy)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* ========== 用户资料弹窗 ========== */
+        .profile-popup {
+            position: fixed;
+            z-index: 9500;
+            background: var(--profile-popup-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 24px 28px;
+            min-width: 260px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+            animation: popupIn 0.25s ease-out;
+            text-align: center;
+        }
+
+        @keyframes popupIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .profile-popup .popup-avatar {
+            font-size: 3.5rem;
+            margin-bottom: 8px;
+        }
+
+        .profile-popup .popup-name {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+        }
+
+        .profile-popup .popup-username {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+
+        .profile-popup .popup-bio {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 6px;
+        }
+
+        .profile-popup .popup-bio:empty::after {
+            content: '这个人很懒，什么都没写...';
+            color: rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+
+        .profile-popup .popup-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .profile-popup .popup-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* ========== 个人中心 ========== */
+        .profile-avatar-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar-display .avatar-big {
+            font-size: 5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .profile-avatar-display .avatar-big:hover {
+            transform: scale(1.2);
+        }
+
+        .avatar-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .avatar-picker .avatar-option {
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .avatar-picker .avatar-option:hover,
+        .avatar-picker .avatar-option.selected {
+            background: var(--input-bg-focus);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== 石头剪刀布 ========== */
+        .rps-arena {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .rps-player, .rps-computer {
+            text-align: center;
+        }
+
+        .rps-player .label, .rps-computer .label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .rps-choice-display {
+            font-size: 5rem;
+            transition: transform 0.3s;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rps-choice-display.shake {
+            animation: rpsShake 0.5s ease-in-out;
+        }
+
+        @keyframes rpsShake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-20deg); }
+            75% { transform: rotate(20deg); }
+        }
+
+        .rps-vs {
+            font-size: 2rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: bold;
+        }
+
+        .rps-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .rps-btn {
+            font-size: 3rem;
+            padding: 14px 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            background: var(--input-bg);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .rps-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-4px) scale(1.1);
+            border-color: #ffd93d;
+            box-shadow: 0 8px 25px rgba(255,217,61,0.3);
+        }
+
+        .rps-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .rps-score {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .rps-score span {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        /* ========== 骰子对决 ========== */
+        .dice-arena {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .dice-side {
+            text-align: center;
+        }
+
+        .dice-side .label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .dice-cup {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .dice-face {
+            width: 70px;
+            height: 70px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .dice-face.rolling {
+            animation: diceRoll 0.15s linear infinite;
+        }
+
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .dice-sum {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .dice-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 12px;
+            background: var(--gradient-dice);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dice-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(77,150,255,0.4);
+        }
+
+        .dice-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .dice-score {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .dice-score span {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        /* ========== 文章列表 ========== */
+        .section-title {
+            color: var(--text-primary);
+            font-size: 1.6rem;
+            margin-bottom: 28px;
+            letter-spacing: 0.06em;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: var(--gradient-section);
+            border-radius: 2px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 28px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            animation: cardIn 0.5s ease-out both;
+        }
+
+        @keyframes cardIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .article-card .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .article-card h4 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            letter-spacing: 0.04em;
+        }
+
+        .article-card .article-date {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+
+        .article-card .article-date .author-link {
+            color: #ffd93d;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .article-card .article-date .author-link:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255,217,61,0.5);
+        }
+
+        .article-card .article-body {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+            white-space: pre-wrap;
+        }
+
+        /* 文章中的图片 */
+        .article-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .article-images img {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .article-images img:hover {
+            transform: scale(1.03);
+        }
+
+        /* 图片灯箱 */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--lightbox-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .lightbox.hidden {
+            display: none;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .lightbox .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 1;
+            line-height: 1;
+        }
+
+        .lightbox .close-lightbox:hover {
+            transform: scale(1.3);
+        }
+
+        .article-card .article-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .article-card .article-actions button {
+            padding: 7px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            background: var(--input-bg);
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .article-card .article-actions button:hover {
+            background: rgba(255,71,87,0.5);
+            border-color: transparent;
+            color: var(--text-primary);
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 8px 12px;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: center;
+            }
+            .navbar .logo {
+                font-size: 1.1rem;
+            }
+            .navbar .user-info {
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: center;
+            }
+            .navbar .user-info button,
+            .navbar .user-info span {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+            .navbar .game-btn,
+            .navbar .thanks-btn,
+            .navbar .logout-btn {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+            .main-container {
+                padding: 130px 16px 40px;
+            }
+            .fab {
+                bottom: 24px;
+                right: 24px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .modal {
+                padding: 24px 20px;
+                width: 95%;
+            }
+            .article-card {
+                padding: 20px;
+            }
+            .article-images {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            .rps-arena {
+                gap: 16px;
+            }
+            .rps-choice-display {
+                font-size: 3rem;
+                min-height: 60px;
+            }
+            .rps-btn {
+                font-size: 2rem;
+                padding: 10px 14px;
+            }
+            .dice-arena {
+                gap: 16px;
+            }
+            .dice-face {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 鼠标光标 -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <div class="particles" id="particles"></div>
+
+    <!-- 顶部导航 -->
+    <nav class="navbar">
+        <div class="logo">能爷的博客</div>
+        <div class="user-info">
+            <button class="thanks-btn" onclick="openThanks()">🌟 鸣谢</button>
+            <button class="game-btn" onclick="openGame()">💣 炸弹</button>
+            <button class="game-btn" onclick="openRPS()">✂️ 猜拳</button>
+            <button class="game-btn" onclick="openDice()">🎲 骰子</button>
+            <button class="thanks-btn" onclick="openProfile()">👤 个人中心</button>
+            <span id="current-username"></span>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <div class="main-container">
+        <div class="section-title">📝 最新文章</div>
+        <div id="article-list"></div>
+    </div>
+
+    <!-- 编辑按钮 -->
+    <button class="fab" onclick="openEditor()" title="写文章">✎</button>
+
+    <!-- 编辑弹窗 -->
+    <div class="modal-overlay hidden" id="editor-modal">
+        <div class="modal">
+            <h3 id="editor-title">✍️ 写文章</h3>
+            <label for="article-title">标题</label>
+            <input type="text" id="article-title" placeholder="请输入文章标题">
+
+            <label for="article-content">内容</label>
+            <textarea id="article-content" placeholder="在这里写下你的想法..."></textarea>
+
+            <!-- 图片上传 -->
+            <div class="image-upload-bar">
+                <button class="btn-insert-image" onclick="document.getElementById('image-input').click()">
+                    🖼 插入图片
+                </button>
+                <span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">支持 JPG/PNG/GIF</span>
+            </div>
+            <input type="file" id="image-input" accept="image/*" multiple hidden onchange="handleImageSelect(event)">
+
+            <!-- 图片预览条 -->
+            <div class="image-preview-strip" id="image-preview-strip"></div>
+
+            <!-- 年龄限制 -->
+            <div class="age-restrict-bar">
+                <label class="age-restrict-label">
+                    <input type="checkbox" id="age-restrict-checkbox">
+                    <span>🔞 年龄限制（仅18岁以上可见）</span>
+                </label>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeEditor()">取 消</button>
+                <button class="btn-publish" onclick="publishArticle()">发 布</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片灯箱 -->
+    <!-- 鸣谢人员弹窗 -->
+    <div class="modal-overlay hidden" id="thanks-modal-overlay">
+        <div class="modal">
+            <h3>🌟 鸣谢人员</h3>
+            <div class="thanks-list">
+                <div class="thanks-item">
+                    <div class="thanks-name">🤖 DeepSeek</div>
+                    <div class="thanks-desc">深度求索公司开发的先进AI大模型，具备强大的自然语言理解与生成能力，在代码生成、逻辑推理、多语言处理等方面表现卓越，为开发者提供高效智能的AI解决方案。</div>
+                </div>
+                <div class="thanks-item">
+                    <div class="thanks-name">💻 Claude Code</div>
+                </div>
+                <div class="thanks-item">
+                    <div class="thanks-name">😎 能爷</div>
+                </div>
+            </div>
+            <div class="modal-buttons" style="margin-top:20px;">
+                <button class="btn-cancel" onclick="closeThanks()">关 闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数字炸弹游戏弹窗 -->
+    <div class="modal-overlay hidden" id="game-modal-overlay">
+        <div class="modal game-modal">
+            <h3>💣 数字炸弹</h3>
+            <div class="game-bomb-icon" id="game-bomb-icon">💣</div>
+            <div class="game-range">
+                <div class="num-box low" id="game-low">1</div>
+                <div class="arrow">→</div>
+                <div class="num-box high" id="game-high">100</div>
+            </div>
+            <div class="game-status" id="game-status">在范围内猜一个数字，避开炸弹！</div>
+            <div class="game-chances" id="game-chances"></div>
+            <div class="guess-history" id="guess-history"></div>
+            <div class="game-input-row" id="game-input-row">
+                <input type="number" id="game-guess" placeholder="?" min="1" max="100">
+                <button onclick="makeGuess()">猜！</button>
+            </div>
+            <div id="game-result"></div>
+            <button class="btn-restart" id="btn-restart" style="display:none;" onclick="restartGame()">🔄 再来一局</button>
+        </div>
+    </div>
+
+    <!-- 个人中心弹窗 -->
+    <div class="modal-overlay hidden" id="profile-modal-overlay">
+        <div class="modal">
+            <h3>👤 个人中心</h3>
+            <div class="profile-avatar-display">
+                <div class="avatar-big" id="profile-avatar-big" onclick="toggleAvatarPicker()">😎</div>
+                <p style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:6px;">点击头像更换</p>
+            </div>
+            <div class="avatar-picker hidden" id="avatar-picker">
+                <!-- JS 填充 -->
+            </div>
+            <label for="profile-nickname">昵称</label>
+            <input type="text" id="profile-nickname" placeholder="输入你的昵称">
+            <label for="profile-bio">个性签名</label>
+            <textarea id="profile-bio" placeholder="写一句个性签名吧..." style="height:80px;"></textarea>
+            <label for="profile-age">🎂 年龄</label>
+            <input type="number" id="profile-age" placeholder="请输入你的年龄" min="1" max="150">
+            <p style="color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:-14px;margin-bottom:8px;">设置年龄后，年满18岁即可查看年龄限制内容</p>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeProfile()">取 消</button>
+                <button class="btn-publish" onclick="saveProfile()">保 存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 石头剪刀布弹窗 -->
+    <div class="modal-overlay hidden" id="rps-modal-overlay">
+        <div class="modal game-modal">
+            <h3>✂️ 石头剪刀布</h3>
+            <div class="rps-arena">
+                <div class="rps-player">
+                    <div class="label">你</div>
+                    <div class="rps-choice-display" id="rps-player-choice">❓</div>
+                </div>
+                <div class="rps-vs">VS</div>
+                <div class="rps-computer">
+                    <div class="label">电脑</div>
+                    <div class="rps-choice-display" id="rps-computer-choice">❓</div>
+                </div>
+            </div>
+            <div class="game-status" id="rps-status">选择你的手势！</div>
+            <div class="rps-buttons" id="rps-buttons">
+                <button class="rps-btn" onclick="playRPS('rock')">✊</button>
+                <button class="rps-btn" onclick="playRPS('scissors')">✌️</button>
+                <button class="rps-btn" onclick="playRPS('paper')">✋</button>
+            </div>
+            <div id="rps-result"></div>
+            <div class="rps-score">
+                <span>🏆 胜：<b id="rps-wins">0</b></span>
+                <span>🤝 平：<b id="rps-draws">0</b></span>
+                <span>💀 负：<b id="rps-losses">0</b></span>
+            </div>
+            <button class="btn-restart" onclick="resetRPSScore()">🔄 重置战绩</button>
+        </div>
+    </div>
+
+    <!-- 骰子对决弹窗 -->
+    <div class="modal-overlay hidden" id="dice-modal-overlay">
+        <div class="modal game-modal">
+            <h3>🎲 骰子对决</h3>
+            <div class="dice-arena">
+                <div class="dice-side">
+                    <div class="label">你</div>
+                    <div class="dice-cup" id="dice-player">
+                        <div class="dice-face">?</div>
+                        <div class="dice-face">?</div>
+                    </div>
+                    <div class="dice-sum" id="dice-player-sum">合计：-</div>
+                </div>
+                <div class="rps-vs">VS</div>
+                <div class="dice-side">
+                    <div class="label">电脑</div>
+                    <div class="dice-cup" id="dice-computer">
+                        <div class="dice-face">?</div>
+                        <div class="dice-face">?</div>
+                    </div>
+                    <div class="dice-sum" id="dice-computer-sum">合计：-</div>
+                </div>
+            </div>
+            <div class="game-status" id="dice-status">点击按钮投掷骰子！</div>
+            <button class="dice-btn" id="dice-roll-btn" onclick="rollDice()">🎯 投掷骰子</button>
+            <div id="dice-result"></div>
+            <div class="dice-score">
+                <span>🏆 胜：<b id="dice-wins">0</b></span>
+                <span>🤝 平：<b id="dice-draws">0</b></span>
+                <span>💀 负：<b id="dice-losses">0</b></span>
+            </div>
+            <button class="btn-restart" onclick="resetDiceScore()">🔄 重置战绩</button>
+        </div>
+    </div>
+
+    <div class="lightbox hidden" id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox" onclick="event.stopPropagation();closeLightbox();">&times;</span>
+        <img src="" alt="预览图片" id="lightbox-img" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        // ========== 粒子动画 ==========
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.width = (Math.random() * 4 + 3) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        // ========== 鼠标光标动画 ==========
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+
+            // 鼠标拖尾粒子
+            if (Math.random() < 0.5) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = mouseX + 'px';
+                trail.style.top = mouseY + 'px';
+                trail.style.width = (Math.random() * 5 + 2) + 'px';
+                trail.style.height = trail.style.width;
+                const hue = (Date.now() / 10 + Math.random() * 60) % 360;
+                trail.style.background = `hsl(${hue}, 70%, 60%)`;
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 600);
+            }
+        });
+
+        // 光标环跟随（带缓动）
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // 点击波纹
+        document.addEventListener('click', function(e) {
+            // 不干扰按钮等功能性点击
+            const burst = document.createElement('div');
+            burst.className = 'cursor-click-burst';
+            burst.style.left = e.clientX + 'px';
+            burst.style.top = e.clientY + 'px';
+            document.body.appendChild(burst);
+            setTimeout(() => burst.remove(), 600);
+
+            // 点击散射粒子
+            for (let i = 0; i < 12; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'cursor-trail';
+                spark.style.left = e.clientX + 'px';
+                spark.style.top = e.clientY + 'px';
+                spark.style.width = '4px';
+                spark.style.height = '4px';
+                spark.style.background = '#ffd93d';
+                spark.style.animation = 'none';
+                spark.style.transition = 'all 0.5s ease-out';
+                document.body.appendChild(spark);
+
+                const angle = (Math.PI * 2 * i) / 12;
+                const dist = 20 + Math.random() * 30;
+                requestAnimationFrame(() => {
+                    spark.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
+                    spark.style.opacity = '0';
+                });
+                setTimeout(() => spark.remove(), 500);
+            }
+        });
+
+        // hover 效果：按钮/链接/输入框
+        document.addEventListener('mouseover', function(e) {
+            const target = e.target.closest('button, a, input, textarea, .author-link, .article-card, .fab, .avatar-option, .rps-btn, .dice-face');
+            if (target) {
+                cursorDot.classList.add('hover');
+                cursorRing.classList.add('hover');
+            }
+        });
+
+        document.addEventListener('mouseout', function(e) {
+            const target = e.target.closest('button, a, input, textarea, .author-link, .article-card, .fab, .avatar-option, .rps-btn, .dice-face');
+            if (target) {
+                cursorDot.classList.remove('hover');
+                cursorRing.classList.remove('hover');
+            }
+        });
+
+        // ========== 用户验证 ==========
+        const currentUser = localStorage.getItem('blog_currentUser');
+        if (!currentUser) {
+            window.location.href = 'blog.html';
+        }
+
+        document.getElementById('current-username').textContent = '👋 ' + currentUser;
+
+        // ========== 文章数据管理 ==========
+        function getArticles() {
+            const articles = localStorage.getItem('blog_articles');
+            return articles ? JSON.parse(articles) : [];
+        }
+
+        function saveArticles(articles) {
+            localStorage.setItem('blog_articles', JSON.stringify(articles));
+        }
+
+        // ========== 渲染文章内容（解析图片标记） ==========
+        function renderContent(content) {
+            // 将 [img]data:...[/img] 替换为图片占位
+            // 将文本内容安全转义，然后还原图片标签
+            const parts = [];
+            const imgRegex = /\[img\]([\s\S]*?)\[\/img\]/g;
+            let lastIndex = 0;
+            let match;
+
+            while ((match = imgRegex.exec(content)) !== null) {
+                // 前面的文本
+                if (match.index > lastIndex) {
+                    parts.push(escapeHtml(content.slice(lastIndex, match.index)));
+                }
+                // 图片
+                parts.push(`<img-data>${escapeHtml(match[1])}</img-data>`);
+                lastIndex = match.index + match[0].length;
+            }
+            // 剩余文本
+            if (lastIndex < content.length) {
+                parts.push(escapeHtml(content.slice(lastIndex)));
+            }
+
+            let html = parts.join('');
+
+            // 替换图片占位为实际 img 标签
+            html = html.replace(/<img-data>(.*?)<\/img-data>/g, function(m, src) {
+                return `<br><img src="${src}" class="article-inline-img" style="max-width:100%;border-radius:10px;margin:12px 0;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="event.stopPropagation();openLightbox('${src}')" loading="lazy"><br>`;
+            });
+
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========== 渲染文章列表 ==========
+        function renderArticles() {
+            const articles = getArticles();
+            const profile = getProfile();
+            const userAge = profile.age;
+            const container = document.getElementById('article-list');
+
+            // 过滤：如果用户未设置年龄或年龄<18，隐藏年龄限制文章
+            const visibleArticles = articles.filter(article => {
+                if (article.isAgeRestricted) {
+                    return userAge !== null && userAge >= 18;
+                }
+                return true;
+            });
+
+            if (visibleArticles.length === 0) {
+                // 区分：是真没文章，还是都被年龄限制了
+                if (articles.length === 0) {
+                    container.innerHTML = '<div class="empty-state">📭 还没有文章，点击右下角 ✎ 开始写作吧</div>';
+                } else {
+                    container.innerHTML = '<div class="age-locked"><span class="lock-icon">🔞</span>存在年龄限制文章，请前往<a href="#" onclick="openProfile();return false;" style="color:#ffd93d;text-decoration:underline;">个人中心</a>设置年龄后查看</div>';
+                }
+                return;
+            }
+
+            // 按时间倒序
+            visibleArticles.sort((a, b) => b.timestamp - a.timestamp);
+
+            container.innerHTML = visibleArticles.map((article, index) => {
+                const bodyHtml = renderContent(article.content);
+                const ageBadge = article.isAgeRestricted ? '<span class="age-badge">🔞 18+</span>' : '';
+                return `
+                    <div class="article-card" style="animation-delay: ${index * 0.08}s">
+                        <div class="article-header">
+                            <h4>${ageBadge}${escapeHtml(article.title)}</h4>
+                            <span class="article-date"><span class="author-link" onclick="event.stopPropagation();showAuthorProfile(event, '${escapeHtml(article.author)}')">👤 ${escapeHtml(article.author)}</span> · ${article.date}</span>
+                        </div>
+                        <div class="article-body">${bodyHtml}</div>
+                        <div class="article-actions">
+                            <button onclick="deleteArticle('${article.id}')">🗑 删除</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ========== 灯箱 ==========
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            lb.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // ========== 图片上传 ==========
+        let pendingImages = []; // 当前编辑中待插入的图片 base64 数据
+
+        function handleImageSelect(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) {
+                    showToast('请选择图片文件', 'error');
+                    return;
+                }
+
+                // 压缩大图（超过 2MB 的压缩一下，避免 localStorage 爆炸）
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        let dataUrl = e.target.result;
+
+                        // 如果图片超过 800px 宽或超过 1MB，进行缩放
+                        const maxWidth = 800;
+                        const maxSize = 1 * 1024 * 1024; // 1MB
+                        const needsResize = img.width > maxWidth || (dataUrl.length > maxSize);
+
+                        if (needsResize) {
+                            const canvas = document.createElement('canvas');
+                            const ratio = Math.min(maxWidth / img.width, 1);
+                            canvas.width = img.width * ratio;
+                            canvas.height = img.height * ratio;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+                        }
+
+                        pendingImages.push(dataUrl);
+
+                        // 在 textarea 中插入标记
+                        const textarea = document.getElementById('article-content');
+                        const marker = `[img]${dataUrl}[/img]`;
+                        const start = textarea.selectionStart;
+                        const end = textarea.selectionEnd;
+                        const before = textarea.value.slice(0, start);
+                        const after = textarea.value.slice(end);
+                        textarea.value = before + (before.length && !before.endsWith('\n') ? '\n' : '') + marker + '\n' + after;
+                        textarea.selectionStart = textarea.selectionEnd = start + marker.length + 1;
+                        textarea.focus();
+
+                        // 更新预览条
+                        updateImagePreview();
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // 清空 input 以便重复选择同一文件
+            event.target.value = '';
+        }
+
+        function updateImagePreview() {
+            const strip = document.getElementById('image-preview-strip');
+            const content = document.getElementById('article-content').value;
+            const imgRegex = /\[img\]([\s\S]*?)\[\/img\]/g;
+            const images = [];
+            let match;
+            while ((match = imgRegex.exec(content)) !== null) {
+                images.push(match[1]);
+            }
+
+            strip.innerHTML = images.map((src, i) => `
+                <div class="image-preview-item">
+                    <img src="${src}" alt="预览图${i+1}">
+                    <button class="remove-img" onclick="removeImage(${i})" title="移除图片">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            const textarea = document.getElementById('article-content');
+            const imgRegex = /\[img\][\s\S]*?\[\/img\]/g;
+            const matches = [];
+            let match;
+            while ((match = imgRegex.exec(textarea.value)) !== null) {
+                matches.push({ text: match[0], index: match.index });
+            }
+
+            if (index < matches.length) {
+                const target = matches[index];
+                // 移除标记及前后可能的换行
+                let before = textarea.value.slice(0, target.index);
+                let after = textarea.value.slice(target.index + target.text.length);
+
+                // 清理多余换行
+                before = before.replace(/\n+$/, '\n');
+                after = after.replace(/^\n+/, '');
+
+                textarea.value = before + after;
+                updateImagePreview();
+            }
+        }
+
+        // ========== 编辑器 ==========
+        let editingId = null;
+
+        function openEditor() {
+            editingId = null;
+            pendingImages = [];
+            document.getElementById('editor-title').textContent = '✍️ 写文章';
+            document.getElementById('article-title').value = '';
+            document.getElementById('article-content').value = '';
+            document.getElementById('image-preview-strip').innerHTML = '';
+            document.getElementById('age-restrict-checkbox').checked = false;
+            document.getElementById('editor-modal').classList.remove('hidden');
+            document.getElementById('article-title').focus();
+        }
+
+        function closeEditor() {
+            document.getElementById('editor-modal').classList.add('hidden');
+            editingId = null;
+            pendingImages = [];
+            document.getElementById('image-preview-strip').innerHTML = '';
+        }
+
+        function publishArticle() {
+            const title = document.getElementById('article-title').value.trim();
+            const content = document.getElementById('article-content').value.trim();
+
+            if (!title || !content) {
+                showToast('请填写文章标题和内容', 'error');
+                return;
+            }
+
+            const articles = getArticles();
+            const now = new Date();
+            const dateStr = now.getFullYear() + '-' +
+                String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                String(now.getDate()).padStart(2, '0') + ' ' +
+                String(now.getHours()).padStart(2, '0') + ':' +
+                String(now.getMinutes()).padStart(2, '0');
+
+            const isAgeRestricted = document.getElementById('age-restrict-checkbox').checked;
+
+            const article = {
+                id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+                title: title,
+                content: content,
+                author: currentUser,
+                date: dateStr,
+                timestamp: now.getTime(),
+                isAgeRestricted: isAgeRestricted
+            };
+
+            articles.push(article);
+            saveArticles(articles);
+            closeEditor();
+            renderArticles();
+            showToast('✅ 文章发布成功！', 'success');
+        }
+
+        // ========== 删除文章 ==========
+        function deleteArticle(id) {
+            if (!confirm('确定要删除这篇文章吗？')) return;
+
+            let articles = getArticles();
+            articles = articles.filter(a => a.id !== id);
+            saveArticles(articles);
+            renderArticles();
+            showToast('文章已删除', 'success');
+        }
+
+        // ========== 退出登录 ==========
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                localStorage.removeItem('blog_currentUser');
+                window.location.href = 'blog.html';
+            }
+        }
+
+        // ========== Toast 提示 ==========
+        function showToast(msg, type) {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = msg;
+            toast.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 9999;
+                padding: 14px 28px;
+                border-radius: 10px;
+                color: var(--text-primary);
+                font-size: 1rem;
+                font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+                letter-spacing: 0.04em;
+                background: ${type === 'error' ? 'rgba(255,71,87,0.9)' : 'rgba(46,213,115,0.9)'};
+                backdrop-filter: blur(10px);
+                animation: toastIn 0.3s ease-out;
+                pointer-events: none;
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'toastOut 0.3s ease-out forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // Toast 动画样式
+        const toastStyle = document.createElement('style');
+        toastStyle.textContent = `
+            @keyframes toastIn {
+                from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            @keyframes toastOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(toastStyle);
+
+        // ========== 文字区域实时预览更新 ==========
+        document.getElementById('article-content').addEventListener('input', updateImagePreview);
+
+        // ========== 点击遮罩关闭弹窗 ==========
+        document.getElementById('editor-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeEditor();
+        });
+
+        // ========== 键盘快捷键 ==========
+        document.addEventListener('keydown', function(e) {
+            // ESC: 优先关闭灯箱，其次关闭弹窗
+            if (e.key === 'Escape') {
+                const modals = [
+                    { id: 'lightbox', close: closeLightbox },
+                    { id: 'thanks-modal-overlay', close: closeThanks },
+                    { id: 'profile-modal-overlay', close: closeProfile },
+                    { id: 'rps-modal-overlay', close: closeRPS },
+                    { id: 'dice-modal-overlay', close: closeDice },
+                    { id: 'game-modal-overlay', close: closeGame },
+                    { id: 'editor-modal', close: closeEditor }
+                ];
+                for (const m of modals) {
+                    const el = document.getElementById(m.id);
+                    if (el && !el.classList.contains('hidden')) {
+                        m.close();
+                        e.stopPropagation();
+                        return;
+                    }
+                }
+            }
+            // Ctrl+Enter 快捷发布
+            if (e.ctrlKey && e.key === 'Enter') {
+                const modal = document.getElementById('editor-modal');
+                if (!modal.classList.contains('hidden')) {
+                    publishArticle();
+                }
+            }
+        });
+
+        // ========== 鸣谢弹窗 + 烟花 ==========
+        function openThanks() {
+            document.getElementById('thanks-modal-overlay').classList.remove('hidden');
+            launchFireworks();
+        }
+
+        function closeThanks() {
+            document.getElementById('thanks-modal-overlay').classList.add('hidden');
+        }
+
+        document.getElementById('thanks-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeThanks();
+        });
+
+        function launchFireworks() {
+            const colors = [
+                '#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff',
+                '#ff8e53', '#ff6eb4', '#00d2ff', '#a855f7',
+                '#f97316', '#e11d48', '#22d3ee', '#84cc16'
+            ];
+
+            // 发射 6 个烟花
+            for (let f = 0; f < 6; f++) {
+                setTimeout(() => {
+                    const container = document.createElement('div');
+                    container.className = 'firework';
+                    // 随机位置
+                    const cx = Math.random() * 80 + 10; // 10%~90% 宽度
+                    const cy = Math.random() * 50 + 15; // 15%~65% 高度
+                    container.style.left = cx + '%';
+                    container.style.top = cy + '%';
+
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const particleCount = 40;
+
+                    for (let i = 0; i < particleCount; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'firework-particle';
+                        const angle = (Math.PI * 2 * i) / particleCount;
+                        const distance = 80 + Math.random() * 150;
+                        const dx = Math.cos(angle) * distance;
+                        const dy = Math.sin(angle) * distance;
+
+                        particle.style.setProperty('--dx', dx + 'px');
+                        particle.style.setProperty('--dy', dy + 'px');
+                        particle.style.backgroundColor = color;
+                        particle.style.width = (Math.random() * 5 + 3) + 'px';
+                        particle.style.height = particle.style.width;
+                        particle.style.animationDuration = (Math.random() * 1 + 1.2) + 's';
+                        particle.style.animationDelay = '0s';
+                        particle.style.boxShadow = `0 0 ${Math.random() * 6 + 3}px ${color}`;
+
+                        container.appendChild(particle);
+                    }
+
+                    document.body.appendChild(container);
+
+                    // 烟花结束后清理
+                    setTimeout(() => {
+                        container.remove();
+                    }, 2000);
+                }, f * 200);
+            }
+        }
+
+        // ========== 数字炸弹游戏 ==========
+        let bombNumber, lowBound, highBound, chancesLeft, gameOver, totalChances = 7;
+
+        function initGame() {
+            bombNumber = Math.floor(Math.random() * 100) + 1;
+            lowBound = 1;
+            highBound = 100;
+            chancesLeft = totalChances;
+            gameOver = false;
+
+            document.getElementById('game-low').textContent = lowBound;
+            document.getElementById('game-high').textContent = highBound;
+            document.getElementById('game-status').textContent = '在范围内猜一个数字，避开炸弹！';
+            document.getElementById('game-status').style.color = 'rgba(255,255,255,0.8)';
+            document.getElementById('game-guess').value = '';
+            document.getElementById('game-guess').disabled = false;
+            document.getElementById('game-guess').min = lowBound;
+            document.getElementById('game-guess').max = highBound;
+            document.getElementById('game-result').innerHTML = '';
+            document.getElementById('game-input-row').style.display = 'flex';
+            document.getElementById('btn-restart').style.display = 'none';
+            document.getElementById('game-bomb-icon').textContent = '💣';
+            document.getElementById('game-bomb-icon').style.animation = 'bombBounce 0.6s ease-in-out infinite alternate';
+            document.getElementById('guess-history').innerHTML = '';
+
+            renderHearts();
+        }
+
+        function renderHearts() {
+            const container = document.getElementById('game-chances');
+            let html = '';
+            for (let i = 0; i < totalChances; i++) {
+                const lost = i >= chancesLeft;
+                html += `<span class="heart${lost ? ' lost' : ''}">❤️</span>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function openGame() {
+            initGame();
+            document.getElementById('game-modal-overlay').classList.remove('hidden');
+            document.getElementById('game-guess').focus();
+        }
+
+        function closeGame() {
+            document.getElementById('game-modal-overlay').classList.add('hidden');
+        }
+
+        function makeGuess() {
+            if (gameOver) return;
+
+            const input = document.getElementById('game-guess');
+            const guess = parseInt(input.value);
+
+            if (isNaN(guess)) {
+                showToast('请输入一个数字', 'error');
+                return;
+            }
+
+            if (guess < lowBound || guess > highBound) {
+                showToast(`请输入 ${lowBound} ~ ${highBound} 之间的数字`, 'error');
+                return;
+            }
+
+            // 添加历史标签
+            const history = document.getElementById('guess-history');
+            const tag = document.createElement('span');
+            tag.className = 'tag';
+
+            if (guess === bombNumber) {
+                // 猜中了炸弹！
+                gameOver = true;
+                tag.classList.add('high-tag');
+                tag.textContent = guess + ' 💥';
+                history.appendChild(tag);
+
+                document.getElementById('game-status').textContent = '💥 BOOM！你踩到炸弹了！';
+                document.getElementById('game-status').style.color = '#ff6b6b';
+                document.getElementById('game-bomb-icon').textContent = '💥';
+                document.getElementById('game-bomb-icon').style.animation = 'none';
+                document.getElementById('game-result').innerHTML = `<div class="game-result lose">💀 炸弹是 ${bombNumber}，你输了！</div>`;
+                document.getElementById('game-input-row').style.display = 'none';
+                document.getElementById('game-guess').disabled = true;
+                document.getElementById('btn-restart').style.display = 'inline-block';
+                chancesLeft--;
+                renderHearts();
+                return;
+            }
+
+            chancesLeft--;
+
+            if (guess < bombNumber) {
+                tag.classList.add('low-tag');
+                tag.textContent = guess + ' ↑';
+                lowBound = Math.max(lowBound, guess + 1);
+                document.getElementById('game-low').textContent = lowBound;
+                document.getElementById('game-status').textContent = `${guess} 太小了！范围缩小 ↑`;
+            } else {
+                tag.classList.add('high-tag');
+                tag.textContent = guess + ' ↓';
+                highBound = Math.min(highBound, guess - 1);
+                document.getElementById('game-high').textContent = highBound;
+                document.getElementById('game-status').textContent = `${guess} 太大了！范围缩小 ↓`;
+            }
+
+            history.appendChild(tag);
+            input.value = '';
+            input.min = lowBound;
+            input.max = highBound;
+            renderHearts();
+
+            // 如果范围缩小到只剩一个数且不是炸弹，自动获胜
+            if (lowBound === highBound && lowBound !== bombNumber) {
+                gameOver = true;
+                document.getElementById('game-status').textContent = `范围只剩 ${lowBound}，但不是炸弹！`;
+                document.getElementById('game-status').style.color = '#2ed573';
+                document.getElementById('game-bomb-icon').textContent = '🎉';
+                document.getElementById('game-bomb-icon').style.animation = 'none';
+                document.getElementById('game-result').innerHTML = `<div class="game-result win">🎉 你赢了！炸弹是 ${bombNumber}，你成功避开了！</div>`;
+                document.getElementById('game-input-row').style.display = 'none';
+                document.getElementById('game-guess').disabled = true;
+                document.getElementById('btn-restart').style.display = 'inline-block';
+                return;
+            }
+
+            // 没机会了
+            if (chancesLeft <= 0) {
+                gameOver = true;
+                document.getElementById('game-status').textContent = '😰 没有机会了...';
+                document.getElementById('game-status').style.color = '#ffd93d';
+                document.getElementById('game-bomb-icon').textContent = '😰';
+                document.getElementById('game-bomb-icon').style.animation = 'none';
+                document.getElementById('game-result').innerHTML = `<div class="game-result win">😅 平局！炸弹是 ${bombNumber}，你幸存了！范围：${lowBound}~${highBound}</div>`;
+                document.getElementById('game-input-row').style.display = 'none';
+                document.getElementById('game-guess').disabled = true;
+                document.getElementById('btn-restart').style.display = 'inline-block';
+            }
+
+            input.focus();
+        }
+
+        function restartGame() {
+            initGame();
+            document.getElementById('game-guess').focus();
+        }
+
+        // 游戏弹窗关闭
+        document.getElementById('game-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeGame();
+        });
+
+        // 游戏回车键猜测
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const gameModal = document.getElementById('game-modal-overlay');
+                if (!gameModal.classList.contains('hidden') && !gameOver) {
+                    e.preventDefault();
+                    makeGuess();
+                }
+            }
+        });
+
+        // ========== 个人中心 ==========
+        const AVATARS = ['😎','🤩','🥳','😊','🦊','🐱','🐶','🐼','🦁','🐸','🦄','🐙','👾','🤖','👻','💩','🌸','🔥','⭐','🌈'];
+
+        function getProfile() {
+            const key = 'blog_profile_' + currentUser;
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : { avatar: '😎', nickname: currentUser, bio: '', age: null };
+        }
+
+        function saveProfileData(profile) {
+            localStorage.setItem('blog_profile_' + currentUser, JSON.stringify(profile));
+            updateUserDisplay();
+        }
+
+        function updateUserDisplay() {
+            const profile = getProfile();
+            document.getElementById('current-username').textContent = profile.avatar + ' ' + (profile.nickname || currentUser);
+        }
+
+        function openProfile() {
+            const profile = getProfile();
+            document.getElementById('profile-avatar-big').textContent = profile.avatar;
+            document.getElementById('profile-nickname').value = profile.nickname || '';
+            document.getElementById('profile-bio').value = profile.bio || '';
+            document.getElementById('profile-age').value = profile.age || '';
+            document.getElementById('avatar-picker').classList.add('hidden');
+            renderAvatarPicker(profile.avatar);
+            document.getElementById('profile-modal-overlay').classList.remove('hidden');
+        }
+
+        function closeProfile() {
+            document.getElementById('profile-modal-overlay').classList.add('hidden');
+        }
+
+        function renderAvatarPicker(currentAvatar) {
+            const container = document.getElementById('avatar-picker');
+            container.innerHTML = AVATARS.map(a =>
+                `<span class="avatar-option${a === currentAvatar ? ' selected' : ''}" onclick="selectAvatar('${a}')">${a}</span>`
+            ).join('');
+        }
+
+        function toggleAvatarPicker() {
+            const picker = document.getElementById('avatar-picker');
+            picker.classList.toggle('hidden');
+            if (!picker.classList.contains('hidden')) {
+                renderAvatarPicker(getProfile().avatar);
+            }
+        }
+
+        function selectAvatar(avatar) {
+            document.getElementById('profile-avatar-big').textContent = avatar;
+            document.getElementById('avatar-picker').classList.add('hidden');
+        }
+
+        function saveProfile() {
+            const avatar = document.getElementById('profile-avatar-big').textContent;
+            const nickname = document.getElementById('profile-nickname').value.trim();
+            const bio = document.getElementById('profile-bio').value.trim();
+            const ageStr = document.getElementById('profile-age').value.trim();
+            const age = ageStr ? parseInt(ageStr) : null;
+
+            if (age !== null && (isNaN(age) || age < 1 || age > 150)) {
+                showToast('请输入有效年龄（1-150 岁）', 'error');
+                return;
+            }
+
+            if (!nickname) {
+                showToast('请输入昵称', 'error');
+                return;
+            }
+
+            saveProfileData({ avatar, nickname, bio, age });
+            closeProfile();
+            renderArticles(); // 年龄改变后重新过滤文章
+            showToast('✅ 个人资料已保存', 'success');
+        }
+
+        document.getElementById('profile-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeProfile();
+        });
+
+        updateUserDisplay();
+
+        // ========== 用户资料弹窗 ==========
+        function showAuthorProfile(event, authorName) {
+            // 先移除已有弹窗
+            const existing = document.querySelector('.profile-popup');
+            if (existing) existing.remove();
+
+            const profileKey = 'blog_profile_' + authorName;
+            const data = localStorage.getItem(profileKey);
+            const profile = data ? JSON.parse(data) : { avatar: '😶', nickname: authorName, bio: '' };
+
+            const popup = document.createElement('div');
+            popup.className = 'profile-popup';
+            popup.innerHTML = `
+                <span class="popup-close" onclick="this.parentElement.remove()">✕</span>
+                <div class="popup-avatar">${profile.avatar}</div>
+                <div class="popup-name">${escapeHtml(profile.nickname || authorName)}</div>
+                <div class="popup-username">@${escapeHtml(authorName)}</div>
+                <div class="popup-bio">${escapeHtml(profile.bio || '')}</div>
+            `;
+            popup.onclick = function(e) { e.stopPropagation(); };
+            document.body.appendChild(popup);
+
+            // 定位弹窗（在点击位置附近）
+            const rect = event.target.getBoundingClientRect();
+            let top = rect.bottom + 10;
+            let left = rect.left + rect.width / 2 - 130;
+
+            if (left < 10) left = 10;
+            if (left + 260 > window.innerWidth) left = window.innerWidth - 270;
+            if (top + 200 > window.innerHeight) top = rect.top - 210;
+
+            popup.style.top = top + 'px';
+            popup.style.left = left + 'px';
+
+            // 点击空白处关闭
+            setTimeout(() => {
+                document.addEventListener('click', function closePopup(e) {
+                    if (!popup.contains(e.target)) {
+                        popup.remove();
+                        document.removeEventListener('click', closePopup);
+                    }
+                });
+            }, 10);
+        }
+
+        // ========== 石头剪刀布 ==========
+        const RPS_MAP = { rock: '✊', scissors: '✌️', paper: '✋' };
+        const RPS_KEYS = ['rock', 'scissors', 'paper'];
+        let rpsWins = 0, rpsDraws = 0, rpsLosses = 0;
+
+        function openRPS() {
+            document.getElementById('rps-modal-overlay').classList.remove('hidden');
+            document.getElementById('rps-player-choice').textContent = '❓';
+            document.getElementById('rps-computer-choice').textContent = '❓';
+            document.getElementById('rps-player-choice').classList.remove('shake');
+            document.getElementById('rps-computer-choice').classList.remove('shake');
+            document.getElementById('rps-status').textContent = '选择你的手势！';
+            document.getElementById('rps-status').style.color = 'rgba(255,255,255,0.8)';
+            document.getElementById('rps-result').innerHTML = '';
+            document.querySelectorAll('#rps-buttons .rps-btn').forEach(b => b.disabled = false);
+            updateRPSScore();
+        }
+
+        function closeRPS() {
+            document.getElementById('rps-modal-overlay').classList.add('hidden');
+        }
+
+        function playRPS(playerChoice) {
+            document.querySelectorAll('#rps-buttons .rps-btn').forEach(b => b.disabled = true);
+
+            const computerChoice = RPS_KEYS[Math.floor(Math.random() * 3)];
+
+            // 动画：双方抖动
+            const pEl = document.getElementById('rps-player-choice');
+            const cEl = document.getElementById('rps-computer-choice');
+            pEl.classList.add('shake');
+            cEl.classList.add('shake');
+
+            setTimeout(() => {
+                pEl.classList.remove('shake');
+                cEl.classList.remove('shake');
+                pEl.textContent = RPS_MAP[playerChoice];
+                cEl.textContent = RPS_MAP[computerChoice];
+
+                // 判定
+                if (playerChoice === computerChoice) {
+                    rpsDraws++;
+                    document.getElementById('rps-status').textContent = '🤝 平局！';
+                    document.getElementById('rps-status').style.color = '#ffd93d';
+                    document.getElementById('rps-result').innerHTML = '<div class="game-result" style="background:rgba(255,217,61,0.2);color:#ffd93d;border:1px solid rgba(255,217,61,0.3);">势均力敌！</div>';
+                } else if (
+                    (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                    (playerChoice === 'scissors' && computerChoice === 'paper') ||
+                    (playerChoice === 'paper' && computerChoice === 'rock')
+                ) {
+                    rpsWins++;
+                    document.getElementById('rps-status').textContent = '🎉 你赢了！';
+                    document.getElementById('rps-status').style.color = '#2ed573';
+                    document.getElementById('rps-result').innerHTML = '<div class="game-result win">🏆 恭喜获胜！</div>';
+                } else {
+                    rpsLosses++;
+                    document.getElementById('rps-status').textContent = '😢 你输了！';
+                    document.getElementById('rps-status').style.color = '#ff6b6b';
+                    document.getElementById('rps-result').innerHTML = '<div class="game-result lose">💀 电脑赢了！</div>';
+                }
+
+                updateRPSScore();
+                setTimeout(() => {
+                    document.querySelectorAll('#rps-buttons .rps-btn').forEach(b => b.disabled = false);
+                }, 800);
+            }, 500);
+        }
+
+        function updateRPSScore() {
+            document.getElementById('rps-wins').textContent = rpsWins;
+            document.getElementById('rps-draws').textContent = rpsDraws;
+            document.getElementById('rps-losses').textContent = rpsLosses;
+        }
+
+        function resetRPSScore() {
+            rpsWins = 0; rpsDraws = 0; rpsLosses = 0;
+            updateRPSScore();
+            document.getElementById('rps-result').innerHTML = '';
+            document.getElementById('rps-status').textContent = '选择你的手势！';
+            document.getElementById('rps-status').style.color = 'rgba(255,255,255,0.8)';
+        }
+
+        document.getElementById('rps-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeRPS();
+        });
+
+        // ========== 骰子对决 ==========
+        let diceWins = 0, diceDraws = 0, diceLosses = 0, diceRolling = false;
+        const DICE_DOTS = { 1: '⚀', 2: '⚁', 3: '⚂', 4: '⚃', 5: '⚄', 6: '⚅' };
+
+        function openDice() {
+            document.getElementById('dice-modal-overlay').classList.remove('hidden');
+            resetDiceDisplay();
+            updateDiceScore();
+        }
+
+        function closeDice() {
+            document.getElementById('dice-modal-overlay').classList.add('hidden');
+        }
+
+        function resetDiceDisplay() {
+            ['dice-player', 'dice-computer'].forEach(id => {
+                document.getElementById(id).querySelectorAll('.dice-face').forEach(f => {
+                    f.textContent = '?';
+                    f.classList.remove('rolling');
+                });
+            });
+            document.getElementById('dice-player-sum').textContent = '合计：-';
+            document.getElementById('dice-computer-sum').textContent = '合计：-';
+            document.getElementById('dice-status').textContent = '点击按钮投掷骰子！';
+            document.getElementById('dice-status').style.color = 'rgba(255,255,255,0.8)';
+            document.getElementById('dice-result').innerHTML = '';
+            document.getElementById('dice-roll-btn').disabled = false;
+        }
+
+        function rollDice() {
+            if (diceRolling) return;
+            diceRolling = true;
+            document.getElementById('dice-roll-btn').disabled = true;
+            document.getElementById('dice-result').innerHTML = '';
+            document.getElementById('dice-status').textContent = '🎰 骰子滚动中...';
+            document.getElementById('dice-status').style.color = '#ffd93d';
+
+            // 双方骰子动画
+            ['dice-player', 'dice-computer'].forEach(id => {
+                document.getElementById(id).querySelectorAll('.dice-face').forEach(f => {
+                    f.classList.add('rolling');
+                });
+            });
+
+            const playerDice = [randDice(), randDice()];
+            const computerDice = [randDice(), randDice()];
+            const playerSum = playerDice[0] + playerDice[1];
+            const computerSum = computerDice[0] + computerDice[1];
+
+            // 滚动效果持续 1s
+            const rollInterval = setInterval(() => {
+                ['dice-player', 'dice-computer'].forEach(id => {
+                    document.getElementById(id).querySelectorAll('.dice-face').forEach(f => {
+                        f.textContent = DICE_DOTS[randDice()];
+                    });
+                });
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(rollInterval);
+                diceRolling = false;
+
+                // 停止动画，显示结果
+                ['dice-player', 'dice-computer'].forEach(id => {
+                    document.getElementById(id).querySelectorAll('.dice-face').forEach(f => {
+                        f.classList.remove('rolling');
+                    });
+                });
+
+                // 填入结果
+                ['dice-player', 'dice-computer'].forEach((id, idx) => {
+                    const dice = idx === 0 ? playerDice : computerDice;
+                    document.getElementById(id).querySelectorAll('.dice-face').forEach((f, i) => {
+                        f.textContent = DICE_DOTS[dice[i]];
+                    });
+                });
+
+                document.getElementById('dice-player-sum').textContent = '合计：' + playerSum;
+                document.getElementById('dice-computer-sum').textContent = '合计：' + computerSum;
+
+                // 判定
+                if (playerSum > computerSum) {
+                    diceWins++;
+                    document.getElementById('dice-status').textContent = '🎉 你赢了！';
+                    document.getElementById('dice-status').style.color = '#2ed573';
+                    document.getElementById('dice-result').innerHTML = `<div class="game-result win">🏆 ${playerSum} vs ${computerSum}，你赢了！</div>`;
+                } else if (playerSum < computerSum) {
+                    diceLosses++;
+                    document.getElementById('dice-status').textContent = '😢 你输了！';
+                    document.getElementById('dice-status').style.color = '#ff6b6b';
+                    document.getElementById('dice-result').innerHTML = `<div class="game-result lose">💀 ${playerSum} vs ${computerSum}，电脑赢了！</div>`;
+                } else {
+                    diceDraws++;
+                    document.getElementById('dice-status').textContent = '🤝 平局！';
+                    document.getElementById('dice-status').style.color = '#ffd93d';
+                    document.getElementById('dice-result').innerHTML = `<div class="game-result" style="background:rgba(255,217,61,0.2);color:#ffd93d;border:1px solid rgba(255,217,61,0.3);">${playerSum} vs ${computerSum}，平局！</div>`;
+                }
+
+                updateDiceScore();
+                document.getElementById('dice-roll-btn').disabled = false;
+            }, 1000);
+        }
+
+        function randDice() {
+            return Math.floor(Math.random() * 6) + 1;
+        }
+
+        function updateDiceScore() {
+            document.getElementById('dice-wins').textContent = diceWins;
+            document.getElementById('dice-draws').textContent = diceDraws;
+            document.getElementById('dice-losses').textContent = diceLosses;
+        }
+
+        function resetDiceScore() {
+            diceWins = 0; diceDraws = 0; diceLosses = 0;
+            updateDiceScore();
+            resetDiceDisplay();
+        }
+
+        document.getElementById('dice-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) closeDice();
+        });
+
+        // ========== 初始化种子数据 ==========
+        function seedArticles() {
+            const articles = getArticles();
+            // 如果没有任何文章，自动填充示例
+            if (articles.length === 0) {
+                const sampleArticles = [
+                    {
+                        id: 'seed001',
+                        title: '欢迎来到能爷的博客！',
+                        content: '大家好！这是能爷的博客第一篇文章。\n\n在这里你可以：\n📝 写文章记录生活\n🖼 插入图片丰富内容\n💣 玩数字炸弹小游戏\n\n希望大家喜欢这里！',
+                        author: currentUser,
+                        date: '2026-06-01 10:30',
+                        timestamp: new Date('2026-06-01T10:30:00').getTime()
+                    },
+                    {
+                        id: 'seed002',
+                        title: '今天天气真好',
+                        content: '阳光明媚，万里无云。\n\n适合出去走走，呼吸新鲜空气。\n\n回来再写一篇文章，记录这美好的一天。🌞',
+                        author: currentUser,
+                        date: '2026-06-03 14:20',
+                        timestamp: new Date('2026-06-03T14:20:00').getTime()
+                    },
+                    {
+                        id: 'seed003',
+                        title: '推荐一部好电影——《肖申克的救赎》',
+                        content: '周末看了一部经典电影《肖申克的救赎》，感触很深。\n\n"有些鸟儿是注定不会被关在笼子里的，它们的每一片羽毛都闪耀着自由的光辉。"\n\n安迪用二十年凿出一条隧道，靠的是信念和坚持。人生也是如此，无论遇到什么困难，都不要放弃希望。\n\n强烈推荐给大家！⭐⭐⭐⭐⭐',
+                        author: currentUser,
+                        date: '2026-06-05 19:45',
+                        timestamp: new Date('2026-06-05T19:45:00').getTime()
+                    },
+                    {
+                        id: 'seed004',
+                        title: '学编程的心得体会',
+                        content: '学习编程已经有一段时间了，分享几个小心得：\n\n1. 不要害怕报错，每一个错误都是学习的机会\n2. 多动手实践，光看不练是学不会的\n3. 遇到问题先自己思考，再去查资料\n4. 保持好奇心，新技术层出不穷\n5. 找到适合自己的学习节奏\n\n编程是一条漫长的路，但每一步都算数。加油！💪',
+                        author: currentUser,
+                        date: '2026-06-07 09:15',
+                        timestamp: new Date('2026-06-07T09:15:00').getTime()
+                    },
+                    {
+                        id: 'seed005',
+                        title: '周末美食探店——巷子里的火锅店',
+                        content: '今天和朋友去了一家藏在巷子里的老火锅店。\n\n📍 位置：老城区幸福路128号\n🍲 推荐：牛油红汤锅底 + 鲜毛肚 + 鸭肠\n💰 人均：80元左右\n\n这家店的锅底是老板自己炒的，香味浓郁却不腻。毛肚七上八下，脆嫩爽口。鸭肠处理得很干净，涮三秒就能吃。\n\n唯一遗憾的是排队太久，我们等了将近一个小时。但吃到第一口的时候，觉得一切都值了！\n\n下次还来！😋',
+                        author: currentUser,
+                        date: '2026-06-08 21:00',
+                        timestamp: new Date('2026-06-08T21:00:00').getTime()
+                    },
+                    {
+                        id: 'seed006',
+                        title: '深夜随想',
+                        content: '夜深了，窗外只有零星灯火。\n\n有时候觉得，写博客就像和自己对话。把想说的话写下来，把看到的风景留下来，把一闪而过的念头抓住。\n\n或许没有人看，或许有人共鸣。都不重要。\n\n重要的是，我在记录。\n\n晚安，世界。🌙',
+                        author: currentUser,
+                        date: '2026-06-09 01:23',
+                        timestamp: new Date('2026-06-09T01:23:00').getTime()
+                    }
+                ];
+
+                saveArticles(sampleArticles);
+                return true;
+            }
+            return false;
+        }
+
+        // 确保当前用户存在于用户数据库
+        function ensureUserExists() {
+            const users = JSON.parse(localStorage.getItem('blog_users') || '{}');
+            if (!users[currentUser]) {
+                users[currentUser] = '123456';
+                localStorage.setItem('blog_users', JSON.stringify(users));
+            }
+        }
+
+        ensureUserExists();
+        seedArticles();
+
+        // ========== 初始渲染 ==========
+        renderArticles();
+    </script>
+</body>
+</html>
